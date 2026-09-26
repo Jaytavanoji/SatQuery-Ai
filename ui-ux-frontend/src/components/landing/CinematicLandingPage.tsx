@@ -136,11 +136,11 @@ export const CinematicLandingPage: React.FC<CinematicLandingPageProps> = ({ onLa
                   type="button" 
                   className="nav-link" 
                   onClick={() => {
-                    navigate('/harmonized-landsat');
+                    navigate('/weather-sat');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                 >
-                  Harmonized Landsat
+                  Weather-Sat
                 </button>
                 <button
                   type="button"

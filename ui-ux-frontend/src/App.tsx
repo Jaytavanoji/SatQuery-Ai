@@ -4,7 +4,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { CinematicLandingPage } from './components/landing/CinematicLandingPage';
 import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { SatelliteViewerPage } from './components/satellite/SatelliteViewerPage';
-import { HarmonizedLandsatPage } from './components/satellite/HarmonizedLandsatPage';
+import { WeatherSatPage, HarmonizedLandsatPage } from './components/satellite/WeatherSatPage';
 import { UserProfile, DashboardView } from './types';
 import { DEFAULT_PROFILE } from './data/mockData';
 
@@ -114,14 +114,18 @@ function AppRoutes() {
         element={<SatelliteViewerPage />}
       />
 
-      {/* 3. Standalone Harmonized Landsat Engine (NASA Earthdata HLS) */}
+      {/* 3. Standalone Weather-Sat Viewer Engine (Zoom.Earth Telemetry) */}
+      <Route
+        path="/weather-sat"
+        element={<WeatherSatPage />}
+      />
       <Route
         path="/harmonized-landsat"
-        element={<HarmonizedLandsatPage />}
+        element={<WeatherSatPage />}
       />
       <Route
         path="/hls"
-        element={<HarmonizedLandsatPage />}
+        element={<WeatherSatPage />}
       />
 
       {/* 3. Main Working Frontend Application at (/app) */}
