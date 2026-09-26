@@ -12,51 +12,51 @@ import {
 } from 'lucide-react';
 import { ModernSatelliteAiLogo } from '../landing/LandingNavbar';
 
-const DEFAULT_ZOOM_EARTH_URL = 'https://zoom.earth/';
+const ZOOM_EARTH_URL = 'https://zoom.earth/maps/satellite/#view=19.4107,74.01284,8z/place=20.964317,74.348728';
 
-interface WeatherPreset {
+interface LocationPreset {
   name: string;
   url: string;
   badge: string;
 }
 
-const PRESETS: WeatherPreset[] = [
+const PRESETS: LocationPreset[] = [
   {
-    name: 'Live Satellite',
-    url: 'https://zoom.earth/maps/satellite/',
-    badge: 'Live'
+    name: 'Maharashtra (Active)',
+    url: 'https://zoom.earth/maps/satellite/#view=19.4107,74.01284,8z/place=20.964317,74.348728',
+    badge: 'State'
   },
   {
-    name: 'Radar & Storms',
-    url: 'https://zoom.earth/maps/radar/',
+    name: 'Mumbai',
+    url: 'https://zoom.earth/maps/satellite/#view=18.97,72.82,10z',
+    badge: 'Coastal'
+  },
+  {
+    name: 'Radar View',
+    url: 'https://zoom.earth/maps/radar/#view=19.4107,74.01284,8z',
     badge: 'Radar'
   },
   {
-    name: 'Wind Streams',
-    url: 'https://zoom.earth/maps/wind/',
+    name: 'Wind Stream',
+    url: 'https://zoom.earth/maps/wind/#view=19.4107,74.01284,8z',
     badge: 'Wind'
-  },
-  {
-    name: 'Global Forecast',
-    url: 'https://zoom.earth/',
-    badge: 'Global'
   }
 ];
 
 export const WeatherSatPage: React.FC = () => {
   const navigate = useNavigate();
-  const [currentUrl, setCurrentUrl] = useState<string>(DEFAULT_ZOOM_EARTH_URL);
+  const [currentUrl, setCurrentUrl] = useState<string>(ZOOM_EARTH_URL);
   const [iframeKey, setIframeKey] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [selectedPreset, setSelectedPreset] = useState<string>('Live Satellite');
+  const [selectedPreset, setSelectedPreset] = useState<string>('Maharashtra (Active)');
 
   const handleRefresh = () => {
     setIsLoading(true);
     setIframeKey(prev => prev + 1);
   };
 
-  const handleSelectPreset = (preset: WeatherPreset) => {
+  const handleSelectPreset = (preset: LocationPreset) => {
     setSelectedPreset(preset.name);
     setCurrentUrl(preset.url);
     setIsLoading(true);
@@ -125,7 +125,7 @@ export const WeatherSatPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Center: Presets Quick Switch Buttons */}
+        {/* Center: Presets Quick Dropdown / Buttons */}
         <div className="hidden md:flex items-center p-0.5 rounded-xl bg-white/5 border border-white/10">
           {PRESETS.map((preset) => (
             <button
@@ -134,16 +134,16 @@ export const WeatherSatPage: React.FC = () => {
               onClick={() => handleSelectPreset(preset)}
               className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 selectedPreset === preset.name
-                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-xs'
+                  ? 'bg-blue-600/30 text-cyan-300 border border-cyan-500/40 shadow-xs'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              {preset.name}
+              {preset.name.split(' ')[0]}
             </button>
           ))}
         </div>
 
-        {/* Right: Controls (Refresh, Fullscreen, Launch External) */}
+        {/* Right: Controls (Refresh, Fullscreen, Open external) */}
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -180,7 +180,7 @@ export const WeatherSatPage: React.FC = () => {
             className="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-950 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 shadow-md shadow-emerald-500/20 transition-all cursor-pointer flex items-center gap-1.5"
             title="Open Zoom.Earth in New Tab"
           >
-            <span className="hidden sm:inline">Open Zoom.Earth</span>
+            <span className="hidden sm:inline">Launch Studio</span>
             <ExternalLink className="w-3.5 h-3.5 text-slate-950 stroke-[2.5]" />
           </button>
         </div>
@@ -192,23 +192,23 @@ export const WeatherSatPage: React.FC = () => {
         {isLoading && (
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-gray-950/80 backdrop-blur-sm transition-opacity duration-300">
             <div className="relative flex items-center justify-center mb-4">
-              <div className="w-14 h-14 rounded-full border-2 border-emerald-500/20 border-t-emerald-400 animate-spin" />
-              <Globe className="w-6 h-6 text-emerald-400 absolute" />
+              <div className="w-14 h-14 rounded-full border-2 border-cyan-500/20 border-t-cyan-400 animate-spin" />
+              <Globe className="w-6 h-6 text-cyan-400 absolute" />
             </div>
-            <p className="text-sm font-semibold text-white tracking-wide font-['Space_Grotesk',sans-serif]">
-              Loading Weather-Sat Live Feed...
+            <p className="text-sm font-semibold text-white tracking-wide">
+              Loading Weather-Sat Live Satellite Feed...
             </p>
-            <p className="text-xs text-emerald-400/90 font-mono mt-1">
-              Interactive Zoom.Earth Weather & Storm Telemetry
+            <p className="text-xs text-gray-400 font-mono mt-1">
+              Zoom.Earth Real-Time Satellite Telemetry
             </p>
           </div>
         )}
 
-        {/* Embedded Iframe */}
+        {/* Embedded Weather-Sat Zoom.Earth Iframe */}
         <iframe
           key={iframeKey}
           src={currentUrl}
-          title="SatQuery AI - Weather-Sat Viewer"
+          title="SatQuery AI - Weather-Sat View"
           className="w-full h-full border-0 relative z-10"
           onLoad={() => setIsLoading(false)}
           allow="geolocation; camera; microphone; fullscreen; clipboard-read; clipboard-write"
@@ -221,9 +221,9 @@ export const WeatherSatPage: React.FC = () => {
             <ShieldAlert className="w-6 h-6" />
           </div>
           <div className="max-w-md space-y-2">
-            <h3 className="text-lg font-bold text-white font-['Space_Grotesk',sans-serif]">Weather-Sat Framing Protection Active</h3>
+            <h3 className="text-lg font-bold text-white font-['Space_Grotesk',sans-serif]">Weather-Sat Protection Active</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              If the embedded viewer above is restricted by browser security policies (<code className="text-emerald-300 bg-white/5 px-1 py-0.5 rounded">SAMEORIGIN</code>), click below to open live Zoom.Earth weather telemetry directly.
+              If the embedded view above appears restricted by browser security policies (<code className="text-emerald-300 bg-white/5 px-1 py-0.5 rounded">SAMEORIGIN</code>), click below to launch the live Zoom.Earth map directly.
             </p>
           </div>
           <button
@@ -231,7 +231,7 @@ export const WeatherSatPage: React.FC = () => {
             onClick={() => handleOpenExternal(currentUrl)}
             className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 text-slate-950 font-extrabold text-xs shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 cursor-pointer flex items-center gap-2"
           >
-            <span>Open Weather-Sat on Zoom.Earth</span>
+            <span>Open Weather-Sat Studio</span>
             <ExternalLink className="w-4 h-4 text-slate-950 stroke-[2.5]" />
           </button>
         </div>
@@ -240,7 +240,7 @@ export const WeatherSatPage: React.FC = () => {
   );
 };
 
-// Also export HarmonizedLandsatPage as an alias for backwards compatibility
+// Also export HarmonizedLandsatPage as an alias
 export const HarmonizedLandsatPage = WeatherSatPage;
 
 export default WeatherSatPage;
