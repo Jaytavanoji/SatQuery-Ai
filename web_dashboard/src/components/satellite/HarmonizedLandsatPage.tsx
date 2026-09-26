@@ -1,32 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, 
   Globe, 
   Compass,
   ExternalLink,
+  RotateCcw,
+  Sparkles,
+  ShieldAlert,
   Layers,
   Activity,
-  Zap,
-  ShieldCheck,
-  Radio,
-  Sliders,
-  Sparkles,
-  Database
+  Maximize2
 } from 'lucide-react';
 import { ModernSatelliteAiLogo } from '../landing/LandingNavbar';
 
-const SHORT_NASA_URL = 'https://go.nasa.gov/4dYfIaB';
+const TARGET_NASA_URL = 'https://worldview.earthdata.nasa.gov/?v=-186.2570025302364,-0.16532027771004998,-133.6969895331391,29.618687087311777&z=4&l=Reference_Labels_15m,DoS_International_Boundaries,Coastlines_15m,IMERG_Precipitation_Rate_30min,IMERG_Precipitation_Rate(hidden),VIIRS_NOAA20_DayNightBand_At_Sensor_Radiance(hidden),VIIRS_NOAA20_DayNightBand_AtSensor_M15(hidden),VIIRS_SNPP_DayNightBand_At_Sensor_Radiance(hidden),VIIRS_SNPP_DayNightBand_AtSensor_M15(hidden),HLS_S30_Nadir_BRDF_Adjusted_Reflectance(hidden),HLS_L30_Nadir_BRDF_Adjusted_Reflectance(hidden),VIIRS_NOAA21_CorrectedReflectance_TrueColor,BlueMarble_NextGeneration(hidden),VIIRS_NOAA20_CorrectedReflectance_TrueColor(hidden),VIIRS_SNPP_CorrectedReflectance_TrueColor(hidden),MODIS_Aqua_CorrectedReflectance_TrueColor(hidden),MODIS_Terra_CorrectedReflectance_TrueColor&lg=false&s=73.8554,18.5208&t=2026-09-25-T00%3A00%3A59Z';
 
 export const HarmonizedLandsatPage: React.FC = () => {
   const navigate = useNavigate();
+  const [iframeKey, setIframeKey] = useState<number>(0);
+  const [isIframeView, setIsIframeView] = useState<boolean>(true);
 
-  const handleLaunchStudio = (url: string = SHORT_NASA_URL) => {
+  const handleLaunchStudio = (url: string = TARGET_NASA_URL) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
+  const handleRefresh = () => {
+    setIframeKey((prev) => prev + 1);
+  };
+
   return (
-    <div className="flex flex-col min-h-screen w-screen overflow-x-hidden bg-slate-950 text-white select-none">
+    <div className="flex flex-col min-h-screen w-screen overflow-hidden bg-slate-950 text-white select-none">
       {/* Top Header Navigation Bar */}
       <header className="h-14 bg-slate-950/95 border-b border-white/10 px-4 sm:px-6 flex items-center justify-between z-40 backdrop-blur-md flex-shrink-0 sticky top-0">
         {/* Left: Navigation & Branding */}
@@ -65,13 +69,33 @@ export const HarmonizedLandsatPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Right: Direct NASA Studio Launch Button */}
-        <div className="flex items-center gap-3">
+        {/* Right: Controls & Direct Launch Button */}
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
-            onClick={() => handleLaunchStudio(SHORT_NASA_URL)}
+            onClick={handleRefresh}
+            className="p-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all cursor-pointer flex items-center gap-1.5"
+            title="Reload Frame"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="hidden md:inline">Refresh</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsIframeView(!isIframeView)}
+            className="p-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-semibold text-emerald-300 hover:text-emerald-200 bg-emerald-950/50 border border-emerald-500/30 transition-all cursor-pointer flex items-center gap-1.5"
+            title="Toggle View Mode"
+          >
+            <Layers className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="hidden md:inline">{isIframeView ? 'Hub Overview' : 'Embedded Viewer'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleLaunchStudio(TARGET_NASA_URL)}
             className="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 shadow-lg shadow-emerald-500/20 transition-all cursor-pointer flex items-center gap-2"
-            title="Launch NASA Earthdata Worldview Studio (go.nasa.gov/4dYfIaB)"
+            title="Launch NASA Earthdata Worldview Studio"
           >
             <span>Launch NASA Studio</span>
             <ExternalLink className="w-3.5 h-3.5 text-slate-950 stroke-[2.5]" />
@@ -79,134 +103,106 @@ export const HarmonizedLandsatPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Workspace Body */}
-      <main className="flex-1 relative flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 overflow-y-auto bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-        {/* Background Grid Pattern & Ambient Glow */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
-
-        <div className="relative z-10 max-w-4xl w-full flex flex-col items-center text-center space-y-8 my-auto py-6">
-          {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-semibold backdrop-blur-md shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <Globe className="w-3.5 h-3.5 text-emerald-400" />
-            <span>NASA Earthdata GIBS Stream Active</span>
-          </div>
-
-          {/* Page Headline */}
-          <div className="space-y-3 max-w-2xl">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-['Space_Grotesk',sans-serif] leading-tight">
-              Harmonized Landsat <span className="text-[#34d399]">Sentinel-2 (HLS)</span>
-            </h1>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl mx-auto font-light">
-              High-frequency, 30-meter surface reflectance telemetry seamlessly combining NASA’s Landsat-8/9 and ESA’s Sentinel-2 constellations.
-            </p>
-          </div>
-
-          {/* Primary Action Button */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md pt-2">
-            <button
-              type="button"
-              onClick={() => handleLaunchStudio(SHORT_NASA_URL)}
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-slate-950 font-extrabold text-base tracking-wide shadow-xl shadow-emerald-500/25 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 cursor-pointer"
-            >
-              <Sparkles className="w-5 h-5 text-slate-950 fill-current" />
-              <span>Open NASA Worldview Studio</span>
-              <ExternalLink className="w-5 h-5 text-slate-950 stroke-[2.5]" />
-            </button>
-          </div>
-
-          <p className="text-xs font-mono text-emerald-400/90 flex items-center justify-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Direct Access URL: <code className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-white font-mono">go.nasa.gov/4dYfIaB</code></span>
-          </p>
-
-          {/* Technical Telemetry Specs Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full pt-6 text-left">
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md space-y-2 hover:border-emerald-500/40 transition-all">
-              <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold">
-                <Layers className="w-4 h-4" />
-                <span>Constellations</span>
+      {/* Main Container */}
+      <main className="flex-1 relative w-full h-[calc(100vh-3.5rem)] bg-slate-950 flex flex-col">
+        {isIframeView ? (
+          <div className="relative w-full h-full flex flex-col">
+            {/* Top Security & Launch Floating Notification Banner */}
+            <div className="bg-slate-900/90 border-b border-white/10 px-4 py-2 flex items-center justify-between text-xs text-slate-300 backdrop-blur-md z-20">
+              <div className="flex items-center gap-2 truncate">
+                <Globe className="w-4 h-4 text-emerald-400 flex-shrink-0 animate-pulse" />
+                <span className="truncate font-mono text-[11px]">
+                  URL: <span className="text-emerald-300">worldview.earthdata.nasa.gov</span> (IMERG Precipitation + HLS + VIIRS NOAA21)
+                </span>
               </div>
-              <p className="text-sm font-bold text-white">Landsat-8/9 + S2A/B</p>
-              <p className="text-[11px] text-slate-400">Harmonized BRDF-adjusted surface reflectance (NBAR).</p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md space-y-2 hover:border-emerald-500/40 transition-all">
-              <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold">
-                <Activity className="w-4 h-4" />
-                <span>Temporal Cadence</span>
-              </div>
-              <p className="text-sm font-bold text-white">2 to 3 Days Revisit</p>
-              <p className="text-[11px] text-slate-400">Global short-timescale environmental tracking.</p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md space-y-2 hover:border-emerald-500/40 transition-all">
-              <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold">
-                <Sliders className="w-4 h-4" />
-                <span>Spatial Resolution</span>
-              </div>
-              <p className="text-sm font-bold text-white">30 Meters Uniform</p>
-              <p className="text-[11px] text-slate-400">Atmospherically corrected with LaSRC/Fmask quality bits.</p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md space-y-2 hover:border-emerald-500/40 transition-all">
-              <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold">
-                <Database className="w-4 h-4" />
-                <span>Coverage</span>
-              </div>
-              <p className="text-sm font-bold text-white">Global Landmass</p>
-              <p className="text-[11px] text-slate-400">Full 100% land surface & coastal waters coverage.</p>
-            </div>
-          </div>
-
-          {/* Satellite Layer Presets Quick-Launch Grid */}
-          <div className="w-full pt-4 space-y-3">
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 text-left">
-              Direct NASA Worldview HLS Layers
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
               <button
                 type="button"
-                onClick={() => handleLaunchStudio('https://worldview.earthdata.nasa.gov/?l=HLS_S30_Nadir_BRDF_Adjusted_Reflectance,HLS_L30_Nadir_BRDF_Adjusted_Reflectance')}
-                className="p-3.5 rounded-xl bg-slate-900/80 border border-white/10 hover:border-emerald-500/50 hover:bg-slate-800/80 transition-all flex items-center justify-between group cursor-pointer"
+                onClick={() => handleLaunchStudio(TARGET_NASA_URL)}
+                className="ml-2 px-3 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/30 text-[11px] font-bold transition-all flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
               >
-                <div>
-                  <h4 className="text-xs font-bold text-white group-hover:text-emerald-300">HLS S30 Sentinel-2 Reflectance</h4>
-                  <p className="text-[10px] text-slate-400 mt-0.5">Nadir BRDF-Adjusted Reflectance (S30)</p>
-                </div>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-400 flex-shrink-0" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleLaunchStudio('https://worldview.earthdata.nasa.gov/?l=HLS_L30_Nadir_BRDF_Adjusted_Reflectance')}
-                className="p-3.5 rounded-xl bg-slate-900/80 border border-white/10 hover:border-emerald-500/50 hover:bg-slate-800/80 transition-all flex items-center justify-between group cursor-pointer"
-              >
-                <div>
-                  <h4 className="text-xs font-bold text-white group-hover:text-emerald-300">HLS L30 Landsat Reflectance</h4>
-                  <p className="text-[10px] text-slate-400 mt-0.5">Nadir BRDF-Adjusted Reflectance (L30)</p>
-                </div>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-400 flex-shrink-0" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleLaunchStudio(SHORT_NASA_URL)}
-                className="p-3.5 rounded-xl bg-slate-900/80 border border-white/10 hover:border-emerald-500/50 hover:bg-slate-800/80 transition-all flex items-center justify-between group cursor-pointer"
-              >
-                <div>
-                  <h4 className="text-xs font-bold text-white group-hover:text-emerald-300">TrueColor 15m Composite</h4>
-                  <p className="text-[10px] text-slate-400 mt-0.5">VIIRS & MODIS High-Res Basemap</p>
-                </div>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-400 flex-shrink-0" />
+                <span>Open Direct Window</span>
+                <ExternalLink className="w-3 h-3 text-emerald-300" />
               </button>
             </div>
+
+            {/* Embedded Iframe & Security Fallback Layer */}
+            <div className="relative flex-1 w-full h-full bg-slate-950">
+              <iframe
+                key={iframeKey}
+                src={TARGET_NASA_URL}
+                className="w-full h-full border-0 relative z-10"
+                title="NASA Earthdata Worldview Studio"
+                allow="fullscreen; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+              />
+
+              {/* Underlying Fallback Layer shown if frame is blocked by SAMEORIGIN headers */}
+              <div className="absolute inset-0 z-0 flex flex-col items-center justify-center p-6 text-center space-y-4 bg-slate-950/90">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <ShieldAlert className="w-6 h-6" />
+                </div>
+                <div className="max-w-md space-y-2">
+                  <h3 className="text-lg font-bold text-white">Browser Framing Protection Active</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    NASA Earthdata servers enforce strict <code className="text-emerald-300 bg-white/5 px-1 py-0.5 rounded">X-Frame-Options: SAMEORIGIN</code> security policy. If the frame above appears blank, launch the workspace directly.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleLaunchStudio(TARGET_NASA_URL)}
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 text-slate-950 font-extrabold text-xs shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 cursor-pointer flex items-center gap-2"
+                >
+                  <Sparkles className="w-4 h-4 text-slate-950" />
+                  <span>Launch Interactive NASA Studio</span>
+                  <ExternalLink className="w-4 h-4 text-slate-950 stroke-[2.5]" />
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          /* Hub Overview Mode */
+          <div className="flex-1 overflow-y-auto p-6 md:p-12 flex flex-col items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+            <div className="max-w-3xl w-full text-center space-y-8 my-auto">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-semibold">
+                <Globe className="w-4 h-4 text-emerald-400" />
+                <span>NASA Earthdata GIBS - Harmonized Telemetry</span>
+              </div>
+
+              <div className="space-y-3">
+                <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-['Space_Grotesk',sans-serif]">
+                  Harmonized Landsat <span className="text-[#34d399]">Studio</span>
+                </h1>
+                <p className="text-slate-300 text-sm sm:text-base max-w-lg mx-auto font-light">
+                  Active layers: IMERG 30-min Precipitation Rate, HLS S30/L30 Nadir BRDF-Adjusted Reflectance, and VIIRS NOAA-21 Corrected Reflectance TrueColor.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-center gap-4 pt-2">
+                <button
+                  type="button"
+                  onClick={() => handleLaunchStudio(TARGET_NASA_URL)}
+                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 text-slate-950 font-extrabold text-sm shadow-xl shadow-emerald-500/25 transition-all hover:scale-105 cursor-pointer flex items-center gap-3"
+                >
+                  <Sparkles className="w-5 h-5 text-slate-950 fill-current" />
+                  <span>Open Full NASA Studio</span>
+                  <ExternalLink className="w-5 h-5 text-slate-950 stroke-[2.5]" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsIframeView(true)}
+                  className="px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm border border-white/10 transition-all cursor-pointer flex items-center gap-2"
+                >
+                  <Maximize2 className="w-4 h-4 text-cyan-400" />
+                  <span>Switch to Frame View</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
 };
 
 export default HarmonizedLandsatPage;
+
