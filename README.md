@@ -222,6 +222,12 @@ npm run dev
   - Direct ArcGIS Wayback global archive embedded securely within the application.
   - Pinpoint Indian metropolitan presets: **Pune** (`73.85674°E, 18.52043°N`), **Mumbai** (`72.83465°E, 18.92200°N`), **Surat** (`72.83106°E, 21.17024°N`), and **Jaipur** (`75.82674°E, 26.92394°N`).
   - Native fullscreen inspection, instant refresh, and telemetry status overlay without external page redirects.
+- **`/harmonized-landsat` & `/hls` — Standalone Harmonized Landsat Engine (NASA Earthdata)**:
+  - Embedded NASA Worldview HLS engine with one-click direct access to Indian remote sensing datasets:
+    - 🌾 **Crop Cycles**: Vegetation greening & NDVI cycles over Punjab & Indo-Gangetic agricultural belt.
+    - 🌊 **Disaster Impact**: Before-and-after floodwater boundary mapping over Assam Brahmaputra Basin.
+    - 🌲 **Deforestation**: Forest canopy dynamics & land use tracking along Western Ghats.
+    - 🏔️ **Snow & Ice**: Glacier retreat & snowpack monitoring over Himachal & Indian Himalayas.
 - **`/app` — AI Earth Observation Operations Dashboard**:
   - **Interactive Split-Slider Evidence Viewer**: Drag vertical partition across original raster and neural inference overlay.
   - **Multi-Spectral Radiance & Reflectance Graphs**: 12-band spectral reflectance curves and automated land-cover composition.

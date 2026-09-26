@@ -4,6 +4,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { CinematicLandingPage } from './components/landing/CinematicLandingPage';
 import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { SatelliteViewerPage } from './components/satellite/SatelliteViewerPage';
+import { HarmonizedLandsatPage } from './components/satellite/HarmonizedLandsatPage';
 import { UserProfile, DashboardView } from './types';
 import { DEFAULT_PROFILE } from './data/mockData';
 
@@ -111,6 +112,16 @@ function AppRoutes() {
       <Route
         path="/workspace"
         element={<SatelliteViewerPage />}
+      />
+
+      {/* 3. Standalone Harmonized Landsat Engine (NASA Earthdata HLS) */}
+      <Route
+        path="/harmonized-landsat"
+        element={<HarmonizedLandsatPage />}
+      />
+      <Route
+        path="/hls"
+        element={<HarmonizedLandsatPage />}
       />
 
       {/* 3. Main Working Frontend Application at (/app) */}

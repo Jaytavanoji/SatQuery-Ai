@@ -132,6 +132,16 @@ export const CinematicLandingPage: React.FC<CinematicLandingPageProps> = ({ onLa
                 >
                   Satellite View
                 </button>
+                <button 
+                  type="button" 
+                  className="nav-link" 
+                  onClick={() => {
+                    navigate('/harmonized-landsat');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                >
+                  Harmonized Landsat
+                </button>
                 <button
                   type="button"
                   className="enroll"

@@ -30,6 +30,16 @@ A production-ready React 19 (Vite + TypeScript + Tailwind CSS) web application f
 
 ---
 
+### 3. Standalone Harmonized Landsat Engine (`/harmonized-landsat`)
+- **Direct NASA Worldview HLS Integration**: Embedded NASA Earthdata Harmonized Landsat Sentinel-2 (HLS) engine.
+- **100% Indian Remote Sensing Presets**:
+  - 🌾 **Crop Cycles**: Vegetation greening & NDVI cycles over Punjab & Indo-Gangetic agricultural belt.
+  - 🌊 **Disaster Impact**: Before-and-after floodwater boundary mapping over Assam Brahmaputra Basin.
+  - 🌲 **Deforestation**: Forest canopy dynamics & land use tracking along Western Ghats.
+  - 🏔️ **Snow & Ice**: Glacier retreat & snowpack monitoring over Himachal & Indian Himalayas.
+
+---
+
 ### 3. AI Analysis Workspace (`/app`)
 - **Interactive Split-Slider Evidence Viewer**: Drag vertical partition across original satellite rasters and neural inference overlays.
 - **Multi-Spectral Radiance & Reflectance Graphs**: 12-band spectral line graphs and land-cover composition bar charts.
