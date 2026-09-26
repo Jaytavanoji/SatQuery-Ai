@@ -28,7 +28,9 @@ A production-grade, offline-first geospatial artificial intelligence reasoning e
 3. **Adaptive Otsu Thresholding**: Calculates dynamic scene-specific spectral decision bounds per raster tile instead of static global cutoffs.
 4. **Sub-Pixel Contour Vectorization**: Emits OGC RFC 7946 GeoJSON vector polygons using sub-pixel contour smoothing (`approxPolyDP`) and calculates real-world ground area in hectares.
 5. **Agentic Task Intent Router**: Parses multi-modal natural language user queries and automatically dispatches execution to specialized neural backbones.
-6. **100% Offline Air-Gapped Execution**: Runs fully local on standard CPU or GPU hardware without mandatory cloud or external API dependencies.
+6. **Cinematic Zero-Delay Landing Interface**: Full GPU-accelerated video background, unified `SATQUERY-AI` branding in Space Grotesk (`SATQUERY-` in white, `AI` in `#34d399`), zero-delay initial rendering, and direct center Launch CTA.
+7. **Standalone In-App Satellite Time-Series Viewer**: Dedicated Earth observation window embedding ArcGIS Wayback time-series imagery directly within the platform with pinpoint Indian coordinates (Pune, Mumbai, Surat, Jaipur) and no external redirects.
+8. **100% Offline Air-Gapped Capable**: Core reasoning engine runs fully local on standard CPU or GPU hardware without mandatory cloud or external API dependencies.
 
 ---
 
@@ -72,20 +74,24 @@ A production-grade, offline-first geospatial artificial intelligence reasoning e
 │           ├── dossier_exporter.py    <-- JSON & Markdown analytical report generator
 │           └── result_visualizer.py   <-- Binary mask, heatmap & overlay renderer
 │
-└── web_dashboard/                    <-- React 19 + Vite Web Application
+├── ui-ux-frontend/                   <-- Standalone Modern Frontend Workspace (React 19 + Vite)
+│   ├── BACKEND_INTEGRATION.md        <-- API contract & connection specifications
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── src/
+│       ├── App.tsx                   <-- Application routes (/, /app, /satellite-view)
+│       ├── components/
+│       │   ├── landing/              <-- CinematicLandingPage & showcase components
+│       │   ├── satellite/            <-- SatelliteViewerPage (ArcGIS Wayback + Indian presets)
+│       │   ├── dashboard/            <-- AI analysis workspace, metrics & uploads
+│       │   └── layout/               <-- Responsive headers & unified wordmarks
+│       └── services/apiService.ts    <-- FastAPI REST client (Port 8000)
+│
+└── web_dashboard/                    <-- Production Dashboard Client (Synced with ui-ux-frontend)
+    ├── BACKEND_INTEGRATION.md
     ├── package.json
     ├── vite.config.ts
-    ├── src/
-    │   ├── App.tsx                   <-- Root React application component
-    │   ├── main.tsx                  <-- DOM entry point
-    │   ├── services/
-    │   │   └── apiService.ts         <-- Axios REST API client & health check
-    │   └── components/
-    │       └── dashboard/
-    │           ├── BenchmarkCardGrid.tsx     <-- Preset benchmark workflow cards
-    │           ├── AnalysisSummaryView.tsx   <-- 12-band spectral line & land-cover charts
-    │           ├── VisualEvidenceSplitter.tsx<-- Interactive split-slider viewer
-    │           └── DossierDownloadPanel.tsx  <-- Report download & print panel
+    └── src/                          <-- Full production source code & components
 ```
 
 ---
@@ -195,19 +201,32 @@ python server_entry.py
 
 ---
 
-## 💻 Web Dashboard (React 19)
+## 💻 Modern Web Frontend (React 19 + TypeScript + Tailwind)
 
-Launch the modern web dashboard on Port 5173:
+Launch the modern frontend workspace on Port 5173:
 
 ```bash
+# Launch from web_dashboard or ui-ux-frontend
 cd web_dashboard
+npm install
 npm run dev
 ```
 
-Open `http://localhost:5173` to access:
-- **Interactive Split-Slider Evidence Viewer**: Drag vertical partition across original image and AI overlay.
-- **Multi-Spectral Radiance & Reflectance Graphs**: 12-band spectral line charts and land-cover composition bar charts.
-- **One-Click Vector Export**: Instant copy for GeoJSON polygons and bounding boxes.
+### Key Routes & Capabilities:
+- **`/` — Cinematic Landing Page**:
+  - Live 60FPS video hero featuring Earth from orbit with zero initialization delay.
+  - Unified uppercase **`SATQUERY-AI`** branding (`Space Grotesk`, `#34d399` AI accent, pure typography without placeholder frames).
+  - Centered high-contrast **Launch** button transitioning immediately to `/app`.
+  - Comprehensive feature showcase: Agentic vs Legacy comparison, foundation architecture breakdown, and verified SOTA benchmarks.
+- **`/satellite-view` & `/workspace` — Standalone In-App Satellite View**:
+  - Direct ArcGIS Wayback global archive embedded securely within the application.
+  - Pinpoint Indian metropolitan presets: **Pune** (`73.85674°E, 18.52043°N`), **Mumbai** (`72.83465°E, 18.92200°N`), **Surat** (`72.83106°E, 21.17024°N`), and **Jaipur** (`75.82674°E, 26.92394°N`).
+  - Native fullscreen inspection, instant refresh, and telemetry status overlay without external page redirects.
+- **`/app` — AI Earth Observation Operations Dashboard**:
+  - **Interactive Split-Slider Evidence Viewer**: Drag vertical partition across original raster and neural inference overlay.
+  - **Multi-Spectral Radiance & Reflectance Graphs**: 12-band spectral reflectance curves and automated land-cover composition.
+  - **One-Click Vector Export**: Instant RFC 7946 GeoJSON vector polygon export with computed ground area in hectares.
+  - **Forensic Report Generation**: Downloadable Markdown and machine-readable JSON dossiers.
 
 ---
 

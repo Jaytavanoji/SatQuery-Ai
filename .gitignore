@@ -31,7 +31,11 @@ data/inputs/uploads/upload_*
 
 # Node & Frontend build
 node_modules/
+node_modules
+web_dashboard/node_modules
+ui-ux-frontend/node_modules
 dist/
+dist
 
 # OS generated files
 .DS_Store

@@ -102,3 +102,5 @@ geospatial_engine/
 | **11** | `geospatial_engine/src/specialists/multimodal_fusion_specialist.py` | **Completed** | Multimodal 14-channel joint optical-SAR specialist (ViT Base). |
 | **12** | `geospatial_engine/src/core_processor.py` | **Completed** | Master GeospatialAIEngine pipeline orchestration and synthesis. |
 | **13** | `geospatial_engine/verify_pipeline.py` | **Completed** | End-to-end integration test runner with synthetic GeoTIFF fixtures. |
+| **14** | `server_entry.py` | **Completed** | FastAPI REST API backend on Port 8000 serving specialist endpoints. |
+| **15** | `ui-ux-frontend` / `web_dashboard` | **Completed** | React 19 web frontend with zero-delay cinematic landing, standalone in-app Wayback satellite viewer, and AI analysis dashboard. |

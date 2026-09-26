@@ -33,6 +33,14 @@ This document outlines the systematic refactoring, modular architecture, anonymi
 - All explicit author names, personal handles, and individual developer references removed across code, comments, configurations, and documentation.
 - Institutional and hackathon specific names replaced with clean, generic enterprise terms (`Geospatial AI Engine`, `Space Intelligence Benchmark`, `National Earth Observation Program`).
 
+### 1.3 Frontend Modernization & Brand Harmonization
+- **Dual Workspace Synchronization**: Kept `ui-ux-frontend/` and `web_dashboard/` fully synchronized with identical production builds and asset bundles.
+- **Cinematic Zero-Delay Landing Interface**: Integrated video hero on `/` with zero-delay rendering (removed artificial animation timeouts for instantaneous initial paint).
+- **Brand Typography Standardization**: Unified uppercase **`SATQUERY-AI`** across headers, landing, and footers using `Space Grotesk`, with crisp white letters and `#34d399` emerald/teal AI accents.
+- **Logo Placeholder Removal**: Removed square icon frames and placeholder boxes, letting the premium typography speak for itself.
+- **Standalone Satellite Archive**: Introduced dedicated in-app `/satellite-view` and `/workspace` routes embedding the global ArcGIS Wayback archive with pinpoint Indian coordinates (Pune, Mumbai, Surat, Jaipur) and no external redirects.
+- **Interface Decoupling & Cleanup**: Removed legacy blinking badges, external bot widgets, and redundant popups.
+
 ---
 
 ## 2. Verification Protocol
@@ -43,12 +51,16 @@ This document outlines the systematic refactoring, modular architecture, anonymi
    ```
    *Status*: 🟢 5/5 tests passing 100% offline.
 
-2. **Frontend Build Suite**:
+2. **Frontend Build Suites**:
    ```bash
+   # Primary workspace
+   npm --prefix ui-ux-frontend run build
+   # Web dashboard production client
    npm --prefix web_dashboard run build
    ```
-   *Status*: 🟢 Clean production build (0 TypeScript/Vite errors).
+   *Status*: 🟢 Clean production builds across all folders (0 TypeScript/Vite errors).
 
-3. **REST Server & CLI Endpoints**:
-   - `python server_entry.py` (Port 8000)
-   - `python cli_runner.py --demo`
+3. **REST Server & Interactive Services**:
+   - Backend API: `python server_entry.py` (Port 8000)
+   - CLI Runner: `python cli_runner.py --demo`
+   - Frontend Server: `npm run dev` (Port 5173 -> `/`, `/app`, `/satellite-view`)

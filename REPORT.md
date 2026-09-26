@@ -197,6 +197,30 @@ python cli_runner.py --crossmodal
 python cli_runner.py --image <path> --query "<text>"
 ```
 
+### 6.3 Modernized Frontend Platform (`ui-ux-frontend` & `web_dashboard`)
+
+The user experience layer has been modernized with a decoupled React 19 architecture:
+
+1. **Cinematic Landing Page (`/`)**:
+   - Zero-delay rendering engine: Bypasses artificial animation timeouts to deliver instantaneous DOM paint and video presentation.
+   - Unified uppercase **`SATQUERY-AI`** brand typography using `Space Grotesk` with `#34d399` emerald/teal AI accents.
+   - Elimination of extraneous logo placeholder frames, presenting a clean typographic brand aesthetic.
+   - Centered primary **Launch** button transitioning immediately into the AI operations workspace.
+
+2. **Standalone In-App Satellite Archive (`/satellite-view` & `/workspace`)**:
+   - Direct integration of the ArcGIS Wayback historical satellite archive without external tab redirections.
+   - Calibrated Indian metropolitan pinpoint presets:
+     - **Pune**: `73.85674°E, 18.52043°N` (Zoom 14)
+     - **Mumbai**: `72.83465°E, 18.92200°N` (Zoom 14)
+     - **Surat**: `72.83106°E, 21.17024°N` (Zoom 14)
+     - **Jaipur**: `75.82674°E, 26.92394°N` (Zoom 14)
+   - Self-contained telemetry controls with fullscreen mode, view reset, and live reload.
+
+3. **AI Analysis Workspace (`/app`)**:
+   - Interactive split-slider for comparing source imagery against neural inference masks.
+   - Multi-spectral band reflectance curves (12-band Sentinel-2) and land-cover percentage breakdowns.
+   - OGC RFC 7946 GeoJSON export with calculated real-world ground area in hectares.
+
 ---
 
 ## 7. Experimental Benchmarks & Quantitative Evaluation
